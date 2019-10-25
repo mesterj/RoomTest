@@ -1,11 +1,7 @@
 package joco.com.roomtest
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 
 @Dao
 interface BookDao {
@@ -18,6 +14,10 @@ interface BookDao {
 
     @Query("DELETE FROM Books")
     suspend fun deleteAll()
+
+    @Transaction
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertorreplaceAllBook(booklist: List<Book>)
 
     //@Update("")
 }
